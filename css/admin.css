@@ -1,0 +1,120 @@
+.mgs-admin-warp{position:relative; margin:25px 40px 0 20px; max-width:90%; font-size:15px;}
+
+.mgs-admin-warp h1{margin:0.2em 200px 0 0; padding:0; color:#32373c; line-height:1.2em; font-size:2.8em; font-weight:400;}
+.mgs-admin-warp h3{margin:1.25em 0 .6em; font-size:1.25em; line-height:1.5;}
+
+.mgs-admin-warp .mgs-feature-section{overflow:hidden; padding:0 0 40px;}
+
+.mgs-admin-warp .about-text{margin:1em 200px 1em 0; min-height:60px; color:#555d66;}
+.mgs-admin-warp .about-description, .mgs-admin-warp .about-text{margin-top:1.4em; font-weight:400; line-height:1.6em; font-size:19px;}
+
+.mgs-admin-warp .mgs-logo{background:#fff url(../images/logo-mgs.svg) no-repeat center center; border:none; box-shadow:0 1px 3px rgba(0, 0, 0, .2); display:inline-block; font-size:14px; font-weight:600; height:30px; margin:5px 0 0; padding-top:100px; position:absolute; right:0; text-align:center; text-rendering:optimizeLegibility; top:0; width:150px;}
+.mgs-admin-warp .mgs-version{background:#2d2d2d; box-shadow:0 1px 3px rgba(0, 0, 0, .2); color:#fff; display:block; margin-top:0px; padding:10px 0; text-align:center;}
+
+.mgs-admin-warp .mgs-thanks p{padding:20px 0;}
+
+.wrap.mgs-admin-warp.nav-tab-wrapper{margin-bottom:30px;}
+.mgs-admin-warp .nav-tab{padding-right:15px; padding-left:15px; font-size:18px;}
+
+.mgs-admin-warp .mgs-important-notice{background:#fff; margin:0 0 30px; padding:30px;}
+
+.mgs-admin-warp .mgs-instrucciones{font-size:17px; line-height:27px;}
+
+#mgs_product_registration{display:-webkit-flex; display:-ms-flexbox; display:flex; -webkit-align-items:center; -ms-align-items:center; align-items:center;}
+#mgs_product_registration .dashicons{margin:0; color:#333333;}
+#mgs_product_registration .dashicons-yes{color:#43A047;}
+#mgs_product_registration p.submit{margin:0; padding:0;}
+
+.mgs-registration-form-container .dashicons{display:block; float:left; width:46px; height:32px; line-height:32px; font-size:36px; text-align:left;}
+.mgs-registration-form input{margin:0 1em; padding:10px 15px; width:100%; height:40px;}
+
+.mgs-registration-form input#mgs_tables_license{font-size:2em; letter-spacing:0.25em;}
+
+.mgs-large-button{padding:15px 20px !important; height:40px !important; line-height:7px !important;}
+
+.fusion-builder-main-settings-advanced .fusion-tabs {
+    float: right;
+    width: 67%;
+    padding-top: 1.5em;
+    margin-top: 1.5em;
+    margin-bottom: 0;
+}
+.fusion-builder-main-settings-advanced .fusion-tabs .fusion-builder-module-settings {
+    width: 100%;
+}
+
+
+/*	editor botton	*/
+i.mce-i-fa-table:before{content:"\f0ce"; font-family:FontAwesome; font-style:normal; font-weight:normal; text-decoration:inherit; color:#333; font-size:1.2em; text-align:center;}
+
+
+#mgs_forms_config_form input[type=radio],
+#mgs_forms_config_form input[type=checkbox]{height:16px; width:16px;}
+
+.mgs-forms-option-field {
+    float: left;
+    margin-bottom: 20px;
+    margin-right:1%;
+}
+
+.list-regs {
+    padding: 20px;
+    margin: 20px 0;
+    border-top: 1px #ccc solid;
+    border-bottom: 1px #ccc solid;
+    background: #fff;
+}
+
+.mgs-mgs-espera {
+    border: 2px #ddd dashed;
+    background: #f1f1f1;
+    padding: 10px;
+    color: #999;
+    font-weight: 700;
+    text-align: center;
+}
+
+select#formulario {
+    height: 40px;
+    padding: 4px 10px;
+    line-height: 40px;
+    width: 100%;
+    color: #999;
+    border-radius: 3px;
+}
+input.mgs-forms-export-csv {
+    height: 40px !IMPORTANT;
+    width: 100% !IMPORTANT;
+    font-size: 1.2em !IMPORTANT;
+}
+
+.mgs-table-error {
+    border: #800 solid 1px;
+    padding: 4px;
+    margin: 4px;
+    background: rgba(136,0,0,0.3);
+    color: #800;
+}
+
+.mgs-forms-rad-replace-fa input[type=radio]{position:absolute; clip:rect(0,0,0,0); pointer-events:none;}
+label.mgs-forms-rad-replace-fa input[type="radio"] ~ i.fa.fa-circle-o{display:block; float:left;}
+label.mgs-forms-rad-replace-fa input[type="radio"] ~ i.fa.fa-check-circle-o{display:none; float:left;}
+label.mgs-forms-rad-replace-fa input[type="radio"]:checked ~ i.fa.fa-check-circle-o{display:block;}
+label.mgs-forms-rad-replace-fa input[type="radio"]:checked ~ i.fa.fa-circle-o{display:none;}
+label.mgs-forms-rad-replace-fa span.label{float:left; display:block; padding:0 8px; line-height:1em; font-size:1em; font-weight:normal; color:#333;}
+.mgs-radios .mgs-checkboxs-radios{display:block; width:100%;}
+
+.mgs-forms-chk-replace-fa input[type=checkbox]{position:absolute; clip:rect(0,0,0,0); pointer-events:none;}
+label.mgs-forms-chk-replace-fa input[type="checkbox"] ~ i.fa.fa-square-o{display:block; float:left;}
+label.mgs-forms-chk-replace-fa input[type="checkbox"] ~ i.fa.fa-check-square-o{display:none; float:left;}
+label.mgs-forms-chk-replace-fa input[type="checkbox"]:checked ~ i.fa.fa-check-square-o{display:block;}
+label.mgs-forms-chk-replace-fa input[type="checkbox"]:checked ~ i.fa.fa-square-o{display:none;}
+label.mgs-forms-chk-replace-fa span.label{float:left; display:block; padding:0 8px; line-height:1em; font-size:1em; font-weight:normal; color:#333;}
+.mgs-checkboxs .mgs-checkboxs-element{display:block; width:100%;}
+
+#mgs-meta-box-registros h2.ui-sortable-handle{background:#60666b; color:#FFF;}
+#mgs-meta-box-registros .toggle-indicator{color:#FFF;}
+#mgs-meta-box-registros{width:100%; box-sizing:border-box;}
+#mgs-meta-box-registros .MGS-builder-logo{float:left; width:40px; height:40px; display:block; margin:4px 16px 0 0; background:url(../images/logo-mgs.svg); background-size:40px 40px;}
+#mgs-meta-box-registros .MGS-builder-title{margin:10px 0; display:inline-block; font-size:18px;}
+#mgs-meta-box-registros .handlediv{padding-top:18px;}
