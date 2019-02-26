@@ -3,6 +3,8 @@
 
 Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
 ## Change Log
+- ###### Version 1.2.b
+  - Fixed fontawesome class name changes
 - ###### Version 1.1.b
   - Fixed opens tags php
 - ###### Version 1.0.b

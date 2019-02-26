@@ -2,7 +2,7 @@
 Tags: forms, db
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 1.1.b
+Stable tag: 1.2.b
 
 Creacion de formularios y almacenado en BBDD (Beta)
 
@@ -17,6 +17,8 @@ Beta
 = Credits =
 
 == Changelog ==
+= Version 1.2.b =
+* Fixed fontawesome class name changes
 = Version 1.1.b =
 * Fixed opens tags php
 = Version 1.0.b =

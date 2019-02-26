@@ -1,4 +1,6 @@
 /* CSS Document */
+/* ver 1.2*/
+
 .mgs-forms-warper-input{padding:10px 15px; margin:0;}
 input.mgs-forms-control[type="text"],
 input.mgs-forms-control[type="number"],
@@ -19,18 +21,18 @@ label.mgs-forms-label-hidden{display:none; opacity:0; visibility:hidden;}
 
 
 .mgs-forms-chk-replace-fa input[type=checkbox]{position:absolute; clip:rect(0,0,0,0); pointer-events:none;}
-label.mgs-forms-chk-replace-fa input[type="checkbox"] ~ i.fa.fa-square-o{display:block; float:left;}
-label.mgs-forms-chk-replace-fa input[type="checkbox"] ~ i.fa.fa-check-square-o{display:none; float:left;}
-label.mgs-forms-chk-replace-fa input[type="checkbox"]:checked ~ i.fa.fa-check-square-o{display:block;}
-label.mgs-forms-chk-replace-fa input[type="checkbox"]:checked ~ i.fa.fa-square-o{display:none;}
+label.mgs-forms-chk-replace-fa input[type="checkbox"] ~ i.far.fa-square{display:block; float:left;}
+label.mgs-forms-chk-replace-fa input[type="checkbox"] ~ i.far.fa-check-square{display:none; float:left;}
+label.mgs-forms-chk-replace-fa input[type="checkbox"]:checked ~ i.far.fa-check-square{display:block;}
+label.mgs-forms-chk-replace-fa input[type="checkbox"]:checked ~ i.far.fa-square{display:none;}
 label.mgs-forms-chk-replace-fa span.label{float:left; display:block; padding:0 8px; line-height:26px; font-size:16px; font-weight:bold; color:#747474;}
 .mgs-checkboxs .mgs-checkboxs-element{display:block; width:100%;}
 
 .mgs-forms-rad-replace-fa input[type=radio]{position:absolute; clip:rect(0,0,0,0); pointer-events:none;}
-label.mgs-forms-rad-replace-fa input[type="radio"] ~ i.fa.fa-circle-o{display:block; float:left;}
-label.mgs-forms-rad-replace-fa input[type="radio"] ~ i.fa.fa-check-circle-o{display:none; float:left;}
-label.mgs-forms-rad-replace-fa input[type="radio"]:checked ~ i.fa.fa-check-circle-o{display:block;}
-label.mgs-forms-rad-replace-fa input[type="radio"]:checked ~ i.fa.fa-circle-o{display:none;}
+label.mgs-forms-rad-replace-fa input[type="radio"] ~ i.fa.fa-circle{display:block; float:left;}
+label.mgs-forms-rad-replace-fa input[type="radio"] ~ i.fa.fa-check-circle{display:none; float:left;}
+label.mgs-forms-rad-replace-fa input[type="radio"]:checked ~ i.fa.fa-check-circle{display:block;}
+label.mgs-forms-rad-replace-fa input[type="radio"]:checked ~ i.fa.fa-circle{display:none;}
 label.mgs-forms-rad-replace-fa span.label{float:left; display:block; padding:0 8px; line-height:26px; font-size:16px; font-weight:bold; color:#747474;}
 .mgs-radios .mgs-checkboxs-radios{display:block; width:100%;}
 

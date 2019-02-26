@@ -1,4 +1,6 @@
 <?php
+//ver 1.2
+
 if( !class_exists('MGS_Forms') ){
 	class MGS_Forms{
 		private static $instance;
@@ -383,7 +385,7 @@ if( !class_exists('MGS_Forms') ){
 			if( $atts['obligatorio']=='yes' ) $html .= ' required="required"';
 			$html .= '/>';
 			if( $atts['checkbox_replace_fa']=='yes' ){
-				$html .= '<i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span class="label">'.$label.'</span>';
+				$html .= '<i class="far fa-square fa-2x"></i><i class="far fa-check-square fa-2x"></i> <span class="label">'.$label.'</span>';
 			}else{
 				$html .= $label;
 			}
@@ -424,7 +426,7 @@ if( !class_exists('MGS_Forms') ){
 				if( $atts['obligatorio']=='yes' ) $html .= ' required="required"';
 				$html .= ' />';
 				if( $atts['checkboxs_replace_fa']=='yes' ){
-					$html .= '<i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span class="label">'.$l_c.'</span>';
+					$html .= '<i class="far fa-square fa-2x"></i><i class="far fa-check-square fa-2x"></i> <span class="label">'.$l_c.'</span>';
 				}else{
 					$html .= $l_c;
 				}
@@ -467,7 +469,7 @@ if( !class_exists('MGS_Forms') ){
 				if( $atts['obligatorio']=='yes' ) $html .= ' required="required"';
 				$html .= ' />';
 				if( $atts['radios_replace_fa']=='yes' ){
-					$html .= '<i class="fa fa-circle-o fa-2x"></i><i class="fa fa-check-circle-o fa-2x"></i> <span class="label">'.$l_c.'</span>';
+					$html .= '<i class="far fa-circle fa-2x"></i><i class="far fa-check-circle fa-2x"></i> <span class="label">'.$l_c.'</span>';
 				}else{
 					$html .= $l_c;
 				}
