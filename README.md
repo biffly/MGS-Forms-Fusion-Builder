@@ -1,8 +1,7 @@
 # MGS-Forms para Fusion Builder
-![GitHub release](https://img.shields.io/github/release/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge)
-![GitHub top language](https://img.shields.io/github/languages/top/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge)
+![GitHub release](https://img.shields.io/github/release/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge) ![GitHub last commit](https://img.shields.io/github/last-commit/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge)
 
+![GitHub top language](https://img.shields.io/github/languages/top/biffly/MGS-Forms-Fusion-Builder.svg) ![GitHub issues](https://img.shields.io/github/issues-raw/biffly/MGS-Forms-Fusion-Builder.svg) ![WP ver min](https://img.shields.io/badge/wordpress-4.9-blue.svg?logo=wordpress)  ![WP ver tested](https://img.shields.io/badge/wordpress-5.1.1%20tested-green.svg?logo=wordpress)
 
 Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
 ## Change Log
