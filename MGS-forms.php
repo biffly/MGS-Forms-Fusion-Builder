@@ -3,7 +3,7 @@
 Plugin Name: MGS-Forms para Fusion Builder
 Plugin URI: http://www.marceloscenna.com.ar
 Description: Creacion de formularios y almacenado en BBDD (BETA)
-Version: 1.2.b
+Version: 1.0
 Author: Marcelo Scenna
 Author URI: http://www.marceloscenna.com.ar
 Text Domain: mgs-forms
@@ -11,6 +11,13 @@ Text Domain: mgs-forms
 
 if( !defined('ABSPATH') ){ exit; }
 error_reporting(E_ALL & ~E_NOTICE);
+
+require 'plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/biffly/MGS-Forms-Fusion-Builder/',
+	__FILE__,
+	'MGS-Forms-FusionBuilder/MGS-forms.php'
+);
 
 /*
 $tmp_upload_dir = wp_upload_dir();
