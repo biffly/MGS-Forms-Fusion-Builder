@@ -1,5 +1,8 @@
 # MGS-Forms para Fusion Builder
-![GitHub release](https://img.shields.io/github/release/biffly/MGS-Forms-Fusion-Builder.svg)
+![GitHub release](https://img.shields.io/github/release/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge)
+
 
 Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
 ## Change Log
