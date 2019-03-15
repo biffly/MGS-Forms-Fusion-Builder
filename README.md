@@ -1,8 +1,22 @@
+<!--
+https://dillinger.io/]
+[https://shields.io/]
+-->
+
 # MGS-Forms para Fusion Builder
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+![GitHub release](https://img.shields.io/github/release/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge) ![GitHub last commit](https://img.shields.io/github/last-commit/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge)
+
+![GitHub top language](https://img.shields.io/github/languages/top/biffly/MGS-Forms-Fusion-Builder.svg) ![GitHub issues](https://img.shields.io/github/issues-raw/biffly/MGS-Forms-Fusion-Builder.svg) ![WP ver min](https://img.shields.io/badge/wordpress-4.9-blue.svg?logo=wordpress)  ![WP ver tested](https://img.shields.io/badge/wordpress-5.1.1%20tested-green.svg?logo=wordpress) ![License](https://img.shields.io/badge/license-BSD%202--Clause-blue.svg)
+
+
 
 Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
 ## Change Log
+
+- ###### Version 1.1
+  - Actualización automatica
+- ###### Version 1.0
+  - Versión estable
 - ###### Version 1.2.b
   - Fixed fontawesome class name changes
 - ###### Version 1.1.b
@@ -37,9 +51,7 @@ Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un fo
   - Lanzamiento
 
 # Licencia
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
-- [MIT license](http://opensource.org/licenses/mit-license.php)
-- Copyright 2019 © [Marcelo Scenna](https://www.marceloscenna.com.ar).
- 
-[//]: # (These are reference links)
-   [dill]: <https://dillinger.io/>
+- ![License](https://img.shields.io/badge/license-BSD%202--Clause-blue.svg)
+- https://github.com/biffly/MGS-Forms-Fusion-Builder/blob/master/LICENSE
+- Copyright 2019 © [Marcelo Scenna](https://www.marceloscenna.com.ar)
+   
