@@ -1,5 +1,5 @@
-[!https://dillinger.io/]
-[!https://shields.io/]
+![https://dillinger.io/]
+![https://shields.io/]
 
 # MGS-Forms para Fusion Builder
 ![GitHub release](https://img.shields.io/github/release/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge) ![GitHub last commit](https://img.shields.io/github/last-commit/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge)
