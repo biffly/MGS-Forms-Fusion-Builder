@@ -1,22 +1,24 @@
 ﻿=== MGS-Forms para Fusion Builder===
 Tags: forms, db
-Requires at least: 4.0
-Tested up to: 4.9
-Stable tag: 1.2.b
+Requires at least: 4.9
+Tested up to: 5.1.1
+Stable tag: 1.1
+License: BSD 2-Clause "Simplified"
+License URI: https://github.com/biffly/MGS-Forms-Fusion-Builder/blob/master/LICENSE
 
-Creacion de formularios y almacenado en BBDD (Beta)
+Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
 
 == Description ==
-Creacion de formularios y almacenado en BBDD (Beta)
+![GitHub release](https://img.shields.io/github/release/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge) ![GitHub last commit](https://img.shields.io/github/last-commit/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge)
 
-= Build Status =
-Beta
-
-= Development =
-
-= Credits =
+![GitHub top language](https://img.shields.io/github/languages/top/biffly/MGS-Forms-Fusion-Builder.svg) ![GitHub issues](https://img.shields.io/github/issues-raw/biffly/MGS-Forms-Fusion-Builder.svg) ![WP ver min](https://img.shields.io/badge/wordpress-4.9-blue.svg?logo=wordpress)  ![WP ver tested](https://img.shields.io/badge/wordpress-5.1.1%20tested-green.svg?logo=wordpress) ![License](https://img.shields.io/badge/license-BSD%202--Clause-blue.svg)
+Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
 
 == Changelog ==
+= Version 1.1
+* Actualización automatica
+= Version 1.0
+* Versión estable
 = Version 1.2.b =
 * Fixed fontawesome class name changes
 = Version 1.1.b =
@@ -49,9 +51,3 @@ Beta
 * Se agrego la posibilidad de enviar un correo de agradecimiento, por el momento solo texto plano.
 = Version 0.1.b =
 * Lanzamiento
-
-== Installation ==
-1. Abrir `wp-content/plugins` Folder
-2. Crear la carpeta: `MGS-Forms` y colocar el contenifo del ZIP
-3. Activar el plugin `MGS-Forms`
-4. Ir a `WP-Admin -> MGS-Forms`
