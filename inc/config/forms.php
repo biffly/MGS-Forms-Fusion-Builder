@@ -472,6 +472,21 @@ $mgs_forms_options = array(
 			),
 			'group'			=> __('Validar', 'mgs-forms')
 		),
+		array(
+			'type'			=> 'textfield',
+			'heading'		=> __( 'Caracteres mímimos', 'mgs-forms' ),
+			'description'	=> __( 'Texto de error para la cantidad de caracteres mínimo', 'mgs-forms' ),
+			'param_name'	=> 'jq_val_msj_len_limit_min',
+			'value'			=> 'Por favor, no escribas menos de {0} caracteres.',
+			'dependency'	=> array(
+				array(
+					'element'	=> 'validator',
+					'value'		=> 'yes',
+					'operator'	=> '==',
+				),
+			),
+			'group'			=> __('Validar', 'mgs-forms')
+		),
 	),
 );
 

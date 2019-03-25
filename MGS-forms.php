@@ -3,7 +3,7 @@
 Plugin Name: MGS-Forms para Fusion Builder
 Plugin URI: http://www.marceloscenna.com.ar
 Description: Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
-Version: 1.3
+Version: 1.4
 Author: Marcelo Scenna
 Author URI: http://www.marceloscenna.com.ar
 Text Domain: mgs-forms
@@ -39,7 +39,7 @@ if( get_option('MGS_FORMS_DEBUG')!='' && get_option('MGS_FORMS_DEBUG')=='true' )
 if( !defined('MGS_FORMS_BASENAME') )			define( 'MGS_FORMS_BASENAME', plugin_basename(__FILE__) );
 if( !defined('MGS_FORMS_PLUGIN_DIR') ) 			define( 'MGS_FORMS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 if( !defined('MGS_FORMS_PLUGIN_DIR_URL') )		define( 'MGS_FORMS_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
-if( !defined('MGS_FORMS_VERSION') ) 			define( 'MGS_FORMS_VERSION', '1.3' );
+if( !defined('MGS_FORMS_VERSION') ) 			define( 'MGS_FORMS_VERSION', '1.4' );
 if( !defined('MGS_FORMS_SLUG') )	 			define( 'MGS_FORMS_SLUG', 'MGS-Forms-FusionBuilder/MGS-forms.php' );
 if( !defined('MGS_FORMS_PLUGIN_REMOTE_PATH') )	define( 'MGS_FORMS_PLUGIN_REMOTE_PATH', 'http://marceloscenna.com.ar/update.php' );
 if( !defined('MGS_FORMS_SPECIAL_SECRET_KEY') ) 	define( 'MGS_FORMS_SPECIAL_SECRET_KEY', '589b4113769878.59794845' );

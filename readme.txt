@@ -2,7 +2,7 @@
 Tags: forms, db
 Requires at least: 4.9
 Tested up to: 5.1.1
-Stable tag: 1.3
+Stable tag: 1.4
 License: BSD 2-Clause "Simplified"
 License URI: https://github.com/biffly/MGS-Forms-Fusion-Builder/blob/master/LICENSE
 
@@ -15,6 +15,8 @@ Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un fo
 Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
 
 == Changelog ==
+= Version 1.4 =
+* Fix admin issue.
 = Version 1.3 =
 * Validación de la cantidad de caracteres mínima y máxima de un campo de texto.
 = Version 1.2 =
