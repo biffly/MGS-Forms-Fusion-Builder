@@ -270,6 +270,7 @@ if( !class_exists('MGS_Forms') ){
 			$html .= '<input type="'.$atts['tipo'].'" class="mgs-forms-control form-control" name="'.$atts['id'].'" id="'.$atts['id'].'" placeholder="'.$placeholder.'" value="'.$value.'" data-placement="bottom"';
 			if( $atts['obligatorio']=='yes' ) $html .= ' required="required"';
 			if( $atts['solo_lectura']=='yes' ) $html .= ' readonly';
+			if( $atts['len_limit_flag']=='yes' ) $html .= ' minlength="'.$atts['len_limit_min'].'" maxlength="'.$atts['len_limit_max'].'"';
 			$html .= '/>';
 			return $html;
 		}

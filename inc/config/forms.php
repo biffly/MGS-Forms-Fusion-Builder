@@ -871,6 +871,59 @@ $mgs_forms_elements_options = array(
 			)
 		),
 		
+		array(
+			'type'        	=> 'radio_button_set',
+			'heading'		=> __('Limitar largo', 'mgs-forms'),
+			'description'	=> __('Activa la opción de limitar la cantidad de caracteres del campo.', 'mgs-forms'),
+			'param_name'  	=> 'len_limit_flag',
+			'default'     	=> 'no',
+			'value'       	=> array(
+				'yes'	=> __( 'Si', 'mgs-forms' ),
+				'no'	=> __( 'No', 'mgs-forms' ),
+			),
+			'dependency'  => array(
+				array(
+					'element'  => 'tipo',
+					'value'    => 'text',
+					'operator' => '==',
+				),
+			)
+		),
+		array(
+			'type'				=> 'range',
+			'heading'          	=> __( 'Mínimos', 'mgs-form' ),
+			'description'      	=> __( 'Cantidad de mínima de caracteres.', 'mgs-form' ),
+			'param_name'       	=> 'len_limit_min',
+			'min'         		=> '0',
+			'max'         		=> '255',
+			'step'        		=> '1',
+			'value'       		=> '0',
+			'dependency'  => array(
+				array(
+					'element'  => 'len_limit_flag',
+					'value'    => 'yes',
+					'operator' => '==',
+				),
+			),
+		),
+		array(
+			'type'				=> 'range',
+			'heading'          	=> __( 'Máximo', 'mgs-form' ),
+			'description'      	=> __( 'Cantidad de máxima de caracteres.', 'mgs-form' ),
+			'param_name'       	=> 'len_limit_max',
+			'min'         		=> '0',
+			'max'         		=> '255',
+			'step'        		=> '1',
+			'value'       		=> '0',
+			'dependency'  => array(
+				array(
+					'element'  => 'len_limit_flag',
+					'value'    => 'yes',
+					'operator' => '==',
+				),
+			),
+		),
+		
 		/*	comunes a todos los campos	*/
 		array(
 			'type'        => 'textfield',
