@@ -74,9 +74,15 @@ class MGS_Forms_Builder_Admin {
 	
 	public static function header(){
 		echo '
-			<h1>'.__('Bienvenido a MGS Forms para Fusion Builder!', 'mgs-forms').'</h1>
-			<div class="about-text">'.__('MGS Forms esta instalado y listo para utilizar, disfrutalo!', 'mgs-forms').'</div>
-			<div class="mgs-logo"><span class="mgs-version">'.__('Versión', 'mgs-forms').' '.MGS_FORMS_VERSION.'</span></div>
+			<div class="mgs-admin-header">
+				<h1>'.__('MGS Forms para Fusion Builder!', 'mgs-forms').'</h1>
+				<div class="about-text">
+					<p>'.__('Creación de formularios y almacenado en BBDD. Permite crear de forma rápida un formulario y agregarlo utilizando Fusion Builder.', 'mgs-forms').'</p>
+					<p><img alt="GitHub release" src="https://img.shields.io/github/release/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge"/> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/biffly/MGS-Forms-Fusion-Builder.svg?style=for-the-badge"/></p>
+					<p><img alt="GitHub top language" src="https://img.shields.io/github/languages/top/biffly/MGS-Forms-Fusion-Builder.svg"/> <img alt="GitHub  issues" src="https://img.shields.io/github/issues-raw/biffly/MGS-Forms-Fusion-Builder.svg"/> <img alt="WP ver min" src="https://img.shields.io/badge/wordpress-4.9-blue.svg?logo=wordpress"/> <img alt="WP ver tested" src="https://img.shields.io/badge/wordpress-5.1.1%20tested-green.svg?logo=wordpress"/> <img alt="License" src="https://img.shields.io/badge/license-BSD%202--Clause-blue.svg"/></p>
+				</div>
+				<div class="mgs-logo"><span class="mgs-version">'.__('Versión', 'mgs-forms').' '.MGS_FORMS_VERSION.'</span></div>
+			</div>
 			<h2 class="nav-tab-wrapper">
 		';
 		self::mgs_forms_admin_tab(__('Formularios', 'mgs-forms'), 'mgs-forms-formularios');

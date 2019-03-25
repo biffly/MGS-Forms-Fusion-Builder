@@ -4,11 +4,11 @@
         <div class="mgs-forms-settings">    
             <div class="mgs-forms-option">
                 <div class="mgs-forms-option-title">
-                    <h3><?php echo __('Formulario', 'mgs-forms' ); ?></h3>
+                	<h3><?php echo __('Formularios', 'mgs-forms' ); ?></h3>
                     <span class="mgs-forms-option-label"><p><?php echo __('Seleccione un formulario para ver los registros.', 'mgs-forms'); ?></p></span>
                 </div>
-                <div class="mgs-forms-option-field" style="width:74%;">
-                    <?php
+                <div class="mgs-forms-option-fields-warp">
+                	<?php
                     global $wpdb;
                     global $table_name;
 					
@@ -21,7 +21,7 @@
 							$placeholder = __('No hay registros en la base de datos', 'mgs-forms');
 						}
                     ?>
-                        <select id="formulario" name="formulario" class="mgs-select-field" <?php echo $state?> placeholder="<?php echo $placeholder?>">
+                        <select id="formulario" name="formulario" class="mgs-forms-control mgs-select-field" <?php echo $state?> placeholder="<?php echo $placeholder?>">
                             <option value=""><?php echo $placeholder?></option>
                             <?php foreach($forms_ids as $f){?>
                             <option value="<?php echo $f->post_id?>"><?php echo get_the_title($f->post_id)?></option>
@@ -33,31 +33,36 @@
 					}
 					?>
                 </div>
-                <div class="mgs-forms-option-field" style="width:24%">
-                	<input type="submit" class="button button-primary mgs-forms-save-settings mgs-forms-export-csv" value="<?php echo __('Descargar CSV')?>" disabled>
-                </div>
-                <hr />
+			</div>
+            <div class="mgs-forms-option">
                 <div class="mgs-forms-option-title">
                     <h3><?php echo __('Ocultar campos', 'mgs-forms' ); ?></h3>
                     <span class="mgs-forms-option-label"><p><?php echo __('Seleccione los campos que desea ocultar del lsitado. Esto solo afecta a el listado en pantalla, el CSV tendra toda la información recolectada.', 'mgs-forms'); ?></p></span>
                 </div>
-                <div class="mgs-forms-option-field" style="width:100%;">
-                    <div class="clear"></div>
-                    <label class="mgs-forms-chk-replace-fa">
-                    	<input type="checkbox" name="hide_fields[]" class="mgs-forms-control form-control" value="referrer" checked/>
-                        <i class="fa fa-square-o"></i><i class="fa fa-check-square-o"></i> <span class="label">Referer</span>
-                    </label> 
-                    <label class="mgs-forms-chk-replace-fa">
-                    	<input type="checkbox" name="hide_fields[]" class="mgs-forms-control form-control" value="agent" checked/>
-                        <i class="fa fa-square-o"></i><i class="fa fa-check-square-o"></i> <span class="label">Agent</span>
-                    </label> 
-                    
+                <div class="mgs-forms-option-fields-warp">
+                	<ul>
+                    	<li>
+                    		<label class="mgs-forms-chk-replace-fa">
+                    			<input type="checkbox" name="hide_fields[]" class="mgs-forms-control" value="referrer" checked/> <span class="label">Referer</span>
+                    		</label>
+						</li>
+                        <li>
+                            <label class="mgs-forms-chk-replace-fa">
+                    			<input type="checkbox" name="hide_fields[]" class="mgs-forms-control" value="agent" checked/> <span class="label">Agent</span>
+                    		</label>
+						</li>
+					</ul>
                 </div>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="mgs-forms-settings list-regs"></div>
-        <div class="clear"></div>
+			</div>
+            <div class="mgs-forms-option">
+                <div class="mgs-forms-option-fields-warp">
+                	<input type="submit" class="button button-primary mgs-forms-save-settings mgs-forms-export-csv" value="<?php echo __('Descargar CSV')?>" disabled>
+                </div>
+			</div>
+    
+            <div class="mgs-forms-settings list-regs"></div>
+	        <div class="clear"></div>
+		</div>
 	</form>
     
     <script>
