@@ -13,6 +13,8 @@ https://dillinger.io/]
 Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
 ## Change Log
 
+- ###### Version 1.6
+  - Fix admin issue
 - ###### Version 1.4
   - Fix admin issue
 - ###### Version 1.3
