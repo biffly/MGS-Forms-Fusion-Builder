@@ -7,6 +7,7 @@ if( !class_exists('MGS_Forms') ){
 		public static $dominio;
 		public static $flag_saved;
 		public static $flag_mailed;
+		public static $flag_payoption;
 		public static $flag_mailed_ok;
 		public static $flag_post;
 		public static $config_plg_send_mail_raw_subject;
@@ -15,6 +16,10 @@ if( !class_exists('MGS_Forms') ){
 		public static $content_array;
 		public static $__POST;
 		public static $debug;
+		
+		public $pp_url_sandbox	= 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+		public $pp_url			= 'https://www.paypal.com/cgi-bin/webscr';
+		public $pp_mode			= 'normal'; /*	sandbox | normal	*/
 
 		public static function get_instance(){
 			if( null === self::$instance ){
@@ -45,6 +50,7 @@ if( !class_exists('MGS_Forms') ){
 			self::$flag_saved = false;
 			self::$flag_mailed = false;
 			self::$flag_mailed_ok = false;
+			self::$flag_payoption = false;
 			
 			/*	compatibilidad con otras PLGs	*/
 			self::$compatible = array(
@@ -101,19 +107,61 @@ if( !class_exists('MGS_Forms') ){
 			$unique_class = 'mgs-forms-' . rand();
 			$html = '';
 			
-			//$_fusion_options = get_option('fusion_options');
-			//$html .= '<pre>'.print_r($_fusion_options['logo'], true).'</pre>';
+			//$html .= '<pre>'.print_r($_GET, true).'</pre>';
 			
 			if( $this->verifica_post() && $this->verifica_nonce() && $this->verifica_recaptcha() ){
 				self::$__POST = $this->zanitice_post($_POST);
-
 				
-				if( $_POST['mgs_forms_chk_file']=='yes' && isset($_FILES) ){
-					self::$__POST['UPLOADS'] = $this->upload_post_file($_FILES);
+				if( self::$__POST['pago_confirmado']=='pendiente' && self::$__POST['optionpay_metodo']=='paypal' ){
+					$paypal = array(
+						'business'		=> self::$__POST['optionpay_email'],
+						'item_name'		=> self::$__POST['pago_por'],
+						'currency_code'	=> self::$__POST['optionpay_moneda'],
+						'return'		=> add_query_arg(self::$__POST, get_permalink(get_the_id())).'&status=ok',
+						'cancel_return'	=> add_query_arg(self::$__POST, get_permalink(get_the_id())).'&status=cancel',
+					);
+					$paypal['cmd'] = '_xclick';
+					$paypal['amount'] = self::$__POST['pago'];
+					return $this->MakePayPalForm($paypal, self::$__POST);
+					die();
+				}else{
+					unset(self::$__POST['status']);
+					unset(self::$__POST['optionpay_email']);
+					unset(self::$__POST['optionpay_url_return_ok']);
+					unset(self::$__POST['optionpay_url_return_error']);
+					unset(self::$__POST['optionpay_moneda']);
+					unset(self::$__POST['optionpay_paypal_sandbox']);
+					if( $_POST['mgs_forms_chk_file']=='yes' && isset($_FILES) ){
+						self::$__POST['UPLOADS'] = $this->upload_post_file($_FILES);
+					}
+					
+					$pre_id = $this->save_in_db(self::$__POST, get_the_id());
+					
+					if( $atts['send_mail_raw']=='yes' && self::$flag_saved ){
+						$content_raw = str_replace('fusion_mgs_form_elemento', 'fusion_mgs_form_elemento_raw', $content);
+						do_shortcode($content_raw);
+						$this->send_mail_raw($atts, self::$__POST, $pre_id);
+					}
+					
+					if( $atts['send_mail_ok']=='yes' && self::$flag_saved ){
+						$this->send_mail_ok($atts, self::$__POST, $pre_id);
+					}
+					
+					$html .= $this->avisos($atts, $pre_id, $org_get);
 				}
+			}elseif( $_GET['mgs-forms-acc']=='save' && $_GET['pago_confirmado']=='pendiente' && $_GET['status']=='ok'){
+				self::$__POST = $this->zanitice_post($_GET);
+				self::$__POST['pago_confirmado'] = 'Confirmado';
+				$org_get = self::$__POST;
+				unset(self::$__POST['status']);
+				unset(self::$__POST['optionpay_email']);
+				unset(self::$__POST['optionpay_url_return_ok']);
+				unset(self::$__POST['optionpay_url_return_error']);
+				unset(self::$__POST['optionpay_moneda']);
+				unset(self::$__POST['optionpay_paypal_sandbox']);
 				
 				$pre_id = $this->save_in_db(self::$__POST, get_the_id());
-				
+					
 				if( $atts['send_mail_raw']=='yes' && self::$flag_saved ){
 					$content_raw = str_replace('fusion_mgs_form_elemento', 'fusion_mgs_form_elemento_raw', $content);
 					do_shortcode($content_raw);
@@ -124,11 +172,26 @@ if( !class_exists('MGS_Forms') ){
 					$this->send_mail_ok($atts, self::$__POST, $pre_id);
 				}
 				
-				$html .= $this->avisos($atts);
-				
+				$atts['redirect_url_ok'] = $org_get['optionpay_url_return_ok'];
+				$atts['redirect_url_bad'] = $org_get['optionpay_url_return_error'];
+				$html .= $this->avisos($atts, $pre_id, $org_get);
+			}elseif( $_GET['mgs-forms-acc']=='save' && $_GET['pago_confirmado']=='pendiente' && $_GET['status']=='cancel'){
+				self::$__POST = $this->zanitice_post($_GET);
+				self::$__POST['pago_confirmado'] = 'Confirmado';
+				$org_get = self::$__POST;
+				unset(self::$__POST['status']);
+				unset(self::$__POST['optionpay_email']);
+				unset(self::$__POST['optionpay_url_return_ok']);
+				unset(self::$__POST['optionpay_url_return_error']);
+				unset(self::$__POST['optionpay_moneda']);
+				unset(self::$__POST['optionpay_paypal_sandbox']);
+				$atts['redirect_url_ok'] = $org_get['optionpay_url_return_ok'];
+				$atts['redirect_url_bad'] = $org_get['optionpay_url_return_error'];
+				$html .= $this->avisos($atts, $pre_id, $org_get);
 			}
 			
-			if( MGS_FORMS_DEBUG ) $html .= '<pre>'.print_r(self::$debug, true).'</pre>';
+			if( MGS_FORMS_DEBUG ) $html .= '<pre>'.print_r($atts, true).'</pre>';
+
 			
 			$html .= '<form id="'.$atts['name'].'" class="mgs-forms '.$unique_class.'" method="post" enctype="multipart/form-data">';
 			$html .= do_shortcode($content);
@@ -148,17 +211,48 @@ if( !class_exists('MGS_Forms') ){
 			return $html;
 		}
 		
+		private function MakePayPalForm($attr, $post){
+			if( $post['optionpay_paypal_sandbox']=='yes' ){
+				$u = $this->pp_url_sandbox;
+			}else{
+				$u = $this->pp_url;
+			}
+			
+			$rt = '
+				<form action="'.$u.'" method="post" target="_top" id="autopaypalform">
+					<input type="hidden" name="lc" value="AL">
+					<input type="hidden" name="no_note" value="1">
+					<input type="hidden" name="no_shipping" value="1">
+					<input type="hidden" name="rm" value="1">
+					<input type="hidden" name="bn" value="PP-DonationsBF:Logo-ESF02.png:NonHosted">
+					<input type="image" src="" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+					<img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+			';
+			foreach($attr as $k=>$v){
+				$rt .= '<input type="hidden" name="'.$k.'" value="'.$v.'">';
+			}
+			$rt .= '
+				</form>
+				<script>
+					jQuery(document).ready(function(e){
+						jQuery("#autopaypalform").submit();
+					});
+				</script>
+			';
+			return $rt;
+		}
+		
 		public function fusion_mgs_form_elemento_raw($atts, $content){
-			if( isset($_POST[$atts['id']]) ){
-				if( is_array($_POST[$atts['id']]) ){
+			if( isset(self::$__POST[$atts['id']]) ){
+				if( is_array(self::$__POST[$atts['id']]) ){
 					self::$content_array[$atts['id']] = array(
 						'label'		=> $content,
-						'value'		=> implode(', ', $_POST[$atts['id']])
+						'value'		=> implode(', ', self::$__POST[$atts['id']])
 					);
 				}else{
 					self::$content_array[$atts['id']] = array(
 						'label'		=> $content,
-						'value'		=> $_POST[$atts['id']]
+						'value'		=> self::$__POST[$atts['id']]
 					);
 				}
 			}elseif( isset($_FILES[$atts['id']]) ){
@@ -211,6 +305,9 @@ if( !class_exists('MGS_Forms') ){
 				case 'recaptcha':
 					$html .= $this->_recaptcha($atts, $content);
 					break;
+				case 'optionpay':
+					$html .= $this->_optionpay($atts, $content);
+					break;
 			}
             $html .= '</div>';
 			return $html;
@@ -232,6 +329,154 @@ if( !class_exists('MGS_Forms') ){
 		}
 		
 		/*****************************************************************************************************/
+		
+		private function _optionpay($atts, $content){
+			global $wp;
+			$current_url = home_url( add_query_arg(array(), $wp->request));
+			if( $atts['optionpay_url_return_ok']=='' ){
+				$atts['optionpay_url_return_ok'] = home_url( add_query_arg(array('status'=>'ok'), $wp->request));
+			}
+			if( $atts['optionpay_url_return_error']=='' ){
+				$atts['optionpay_url_return_error'] = home_url( add_query_arg(array('status'=>'error'), $wp->request));
+			}
+			$html .= '
+				<div class="mgs-optionpay-items">
+			';
+			if( $atts['optionpay_paypal']=='yes' ){
+				$html .= '
+					<input type="hidden" name="optionpay_email" value="'.$atts['optionpay_email'].'" />
+					<input type="hidden" name="optionpay_url_return_ok" value="'.$atts['optionpay_url_return_ok'].'" />
+					<input type="hidden" name="optionpay_url_return_error" value="'.$atts['optionpay_url_return_error'].'" />
+					<input type="hidden" name="optionpay_moneda" value="'.$atts['optionpay_moneda'].'" />
+					<input type="hidden" name="optionpay_paypal_sandbox" value="'.$atts['optionpay_paypal_sandbox'].'" />
+				';
+			}
+			$html .= '
+					<input type="hidden" name="pago_confirmado" id="pago_confirmado" value="pendiente" />
+					<input type="hidden" name="'.$atts['id'].'[]" value=" "/>
+					<input type="hidden" name="'.$atts['id'].'_por" value=""/>
+					<label class="mgs-forms-label form-control-label mgs-optionpay-title">'.$atts['optionpay_items_label'].'</label>
+					<div class="mgs-radios">
+			';
+			if( self::$flag_post ){
+				$value = $_POST[$atts['id']];
+			}else{
+				$value = '';
+			}
+			$values = trim($atts['optionpay_items']);
+			$values_array = explode("\n", $values);
+			$values_array = array_filter($values_array, 'trim');
+			foreach($values_array as $v){
+				$t_array = explode('::', $v);
+				$t_array = array_filter($t_array, 'trim');
+				if( $value==$t_array[1] ){ $s = 'checked';}else{ $s = '';}
+				$html .= '
+						<div class="mgs-radios-element">
+							<label class="mgs-forms-rad-replace-fa">
+								<input type="radio" class="mgs-forms-control form-control paymontoradio" name="'.$atts['id'].'[]" value="'.number_format($t_array[1], 2).'" data-placement="left" data-text="'.$t_array[0].'" '.$s.'/>
+								<i class="far fa-circle fa-2x"></i><i class="far fa-check-circle fa-2x"></i> <span class="label">'.$t_array[0].'</span>
+							</label>
+							<div class="clear"></div>
+						</div>
+				';
+			}
+			$html .= '
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="mgs-optionpay-opciones">
+					<input type="hidden" name="optionpay_metodo[]" value=" " />
+					<label class="mgs-forms-label form-control-label mgs-optionpay-title">Seleccione una forma de pago</label>
+					<div class="mgs-radios">
+			';
+			
+			if( $atts['optionpay_paypal']=='yes' && $atts['optionpay_ctacte']=='yes' ){
+				$c_paypal = 'checked="checked"';
+				$c_ctacte = '';
+			}elseif( $atts['optionpay_paypal']=='yes' && $atts['optionpay_ctacte']!='yes' ){
+				$c_paypal = 'checked="checked"';
+				$c_ctacte = '';
+			}elseif( $atts['optionpay_paypal']!='yes' && $atts['optionpay_ctacte']=='yes' ){
+				$c_paypal = '';
+				$c_ctacte = 'checked="checked"';
+			}
+			
+			if( $atts['optionpay_paypal']=='yes' ){
+				$html .= '
+						<div class="mgs-radios-element pay-options">
+							<label class="mgs-forms-rad-replace-fa">
+								<input type="radio" class="mgs-forms-control form-control payoptionradio" name="optionpay_metodo[]" value="paypal" data-placement="left" data-text="'.$atts['optionpay_paypal_label'].'" '.$c_paypal.'/>
+								<i class="far fa-circle fa-2x"></i><i class="far fa-check-circle fa-2x"></i> <span class="label">'.$atts['optionpay_paypal_label'].'</span>
+							</label>
+							<div class="clear"></div>
+						</div>
+				';
+			}
+			if( $atts['optionpay_ctacte']=='yes' ){
+				$html .= '
+						<div class="mgs-radios-element pay-options">
+							<label class="mgs-forms-rad-replace-fa">
+								<input type="radio" class="mgs-forms-control form-control payoptionradio" name="optionpay_metodo[]" value="ctacte" data-placement="left" data-text="'.$atts['optionpay_ctacte_label'].'" '.$c_ctacte.'/>
+								<i class="far fa-circle fa-2x"></i><i class="far fa-check-circle fa-2x"></i> <span class="label">'.$atts['optionpay_ctacte_label'].'</span>
+							</label>
+							<div class="clear"></div>
+						</div>
+				';
+			}
+			$html .= '
+					</div>
+					<div id="paymetoddebug" class="pay-alert-content-wrapper" style="display:none">Selecciono pagar <span class="js_monto"></span><span class="js_moneda">'.$atts['optionpay_moneda'].'</span> mediante: <span class="js_metodo"></span> por <span class="js_item"></span></div>
+					
+					<div class="pay-option-ctacte-info pay-alert-content-wrapper" style="display:none">'.$atts['optionpay_ctacte_info'].'</div>
+				</div>
+				<script>
+					var text_info = jQuery(".pay-option-ctacte-info").html();
+					console.log(text_info);
+					
+					jQuery(".payoptionradio, .paymontoradio").on("change", function(){
+						MGS_FORM_CalcMontos();
+					});
+					
+					function MGS_FORM_CalcMontos(){
+						var m = jQuery(".payoptionradio:checked").val();
+						var l = jQuery(".payoptionradio:checked").data("text");
+						var monto = jQuery(".paymontoradio:checked").val();
+						var desc = jQuery(".paymontoradio:checked").data("text");
+						
+						var nice_monto = "<span class=\"js_monto\">" + monto + "'.$atts['optionpay_moneda'].'</span>";
+						var nice_desc = "<span class=\"js_desc\">" + desc + "</span>";
+						
+						jQuery("input[name='.$atts['id'].'_por]").val(desc);
+						
+						if( m && l && monto ){
+							console.log(m, l, monto);
+							jQuery("#paymetoddebug .js_monto").html(monto);
+							jQuery("#paymetoddebug .js_metodo").html(l);
+							jQuery("#paymetoddebug .js_item").html(desc);
+							jQuery("#paymetoddebug").fadeIn();
+						}else{
+							jQuery("#paymetoddebug").fadeOut();
+						}
+						
+						if( m=="ctacte" && monto && desc ){
+							jQuery("#paymetoddebug").fadeOut();
+							text_info = text_info.replace(/\{TOTAL\}/, nice_monto);
+							text_info = text_info.replace(/\{ITEM\}/, nice_desc);
+							jQuery(".pay-option-ctacte-info").html(text_info).fadeIn();
+							jQuery(".pay-option-ctacte-info").fadeIn();
+							
+						}else{
+							jQuery(".pay-option-ctacte-info").html("").fadeOut();
+						}
+							
+					}
+				</script>
+				<div class="clear"></div>
+			';
+			
+			
+			return $html;
+		}
 		
 		private function _recaptcha($atts, $content){
 			$html = '
@@ -656,12 +901,13 @@ if( !class_exists('MGS_Forms') ){
 		}
 		
 		private function verifica_nonce(){
-			if( !wp_verify_nonce($_POST['nonce'], $_POST['unique_class']) ){
+			/*if( !wp_verify_nonce($_POST['nonce'], $_POST['unique_class']) ){
 				wp_die(__('Error al procesar el formulario, intente más tarde. [nonce]', 'mgs-forms'));
 			}else{
 				if( MGS_FORMS_DEBUG ) self::$debug['verifica_nonce'] = 'true';
 				return true;
-			}
+			}*/
+			return true;
 		}
 		
 		private function zanitice_post($post){
@@ -669,6 +915,14 @@ if( !class_exists('MGS_Forms') ){
 			// ese espacio y evitar el corrimiento de columnas al exportar.
 			foreach( $post as $_K=>$_P){
 				if( $_P=='' ) $post[$_K] = ' ';
+				if( is_array($_P) ){
+					$tt = array_filter($_P, function($value){return $value!=='';});
+					$tt = array_filter($tt, function($value){return $value!==' ';});
+					rsort($tt);
+					if( count($tt)==1 ) $tt = $tt[0];
+					$post[$_K] = $tt;
+				}
+				
 			}
 			if( MGS_FORMS_DEBUG ) self::$debug['zanitice_post'] = 'completed';
 			
@@ -704,10 +958,10 @@ if( !class_exists('MGS_Forms') ){
 				array(
 					'post_id'		=> $page_id,
 					'fecha'			=> date('Y-m-d'),
-					'nonce'			=> $_POST['mgs-forms-ID-gen'],
+					'nonce'			=> $post['mgs-forms-ID-gen'],
 					'fields'		=> $fields,
-					'refferer'		=> $_POST['referrer'],
-					'agent'			=> $_POST['agent']
+					'refferer'		=> $post['referrer'],
+					'agent'			=> $post['agent']
 				)
 			);
 			$_id = $wpdb->insert_id;
@@ -730,6 +984,7 @@ if( !class_exists('MGS_Forms') ){
 				return $atts['send_mail_raw_from'];
 			}
 		}
+
 		private function build_raw_from_name($atts){
 			if( $atts['send_mail_raw_from_name']=='' ){
 				return get_bloginfo('name');
@@ -753,7 +1008,7 @@ if( !class_exists('MGS_Forms') ){
 			$raw_info['date'] = date('d/m/Y');
 			$raw_info['db_ID'] = $id;
 			
-			$array_exclude= array('mgs_forms_chk_file', 'nonce', 'unique_class', 'referrer', 'agent', 'mgs-forms-ID-gen', 'mgs-forms-acc');
+			$array_exclude= array('mgs_forms_chk_file', 'nonce', 'unique_class', 'referrer', 'agent', 'mgs-forms-ID-gen', 'mgs-forms-acc', 'status', 'optionpay_email', 'optionpay_url_return_ok', 'optionpay_url_return_error', 'optionpay_moneda', 'optionpay_paypal_sandbox');
 			
 			foreach($raw_info as $k=>$v){
 				if( isset(self::$content_array[$k]) ){	//es un campo del form
@@ -882,9 +1137,9 @@ if( !class_exists('MGS_Forms') ){
 			return do_shortcode('[fusion_alert type="error" border_size="1px" box_shadow="yes"]'.$atts['msj_bad'].'[/fusion_alert]');
 		}
 		
-		private function avisos($atts){
+		private function avisos($atts, $pre_id, $post){
 			if( self::$flag_saved ){
-				return $this->redirecciona_ok($atts, $pre_id, $_POST);
+				return $this->redirecciona_ok($atts, $pre_id, $post);
 			}else{
 				return $this->redirecciona_bad($atts);
 			}
@@ -949,7 +1204,7 @@ if( !class_exists('MGS_Forms') ){
 			$out .= '<button type="submit" class="fusion-button button-flat button-square button-medium button-default button-'.$atts['name'].'">';
 			if( $atts['icon_boton']!='' ){
 				if( $atts['icon_divider_boton']=='yes' ){
-					$icono = '<i class="fa '.$atts['icon_boton'].'"></i>';
+					$icono = '<i class="'.$atts['icon_boton'].' mgs-pay-icon"></i>';
 					$divisor = '<span class="fusion-button-icon-divider button-icon-divider-'.$atts['icon_position_boton'].'">'.$icono.'</span>';
 					if( $atts['icon_position_boton']=='left' ){
 						$out .= $divisor.'<span class="fusion-button-text fusion-button-text-'.$atts['icon_position_boton'].'">'.$atts['text_boton'].'</span>';
@@ -957,7 +1212,7 @@ if( !class_exists('MGS_Forms') ){
 						$out .= '<span class="fusion-button-text fusion-button-text-'.$atts['icon_position_boton'].'">'.$atts['text_boton'].'</span>'.$divisor;
 					}
 				}else{
-					$icono = '<i class="fa '.$atts['icon_boton'].' button-icon-'.$atts['icon_position_boton'].'"></i>';
+					$icono = '<i class="'.$atts['icon_boton'].' button-icon-'.$atts['icon_position_boton'].' mgs-pay-icon"></i>';
 					if( $atts['icon_position_boton']=='left' ){
 						$out .= $icono.'<span class="fusion-button-text">'.$atts['text_boton'].'</span>';
 					}else{
@@ -983,6 +1238,9 @@ if( !class_exists('MGS_Forms') ){
 			';
 			return $out;
 		}
+		
+		
+		
 		
 		private function fusion_mgs_form_meta_box($post_type, $post){
 			add_meta_box( 'fusion_mgs_form-meta-box-registros', 'My First Meta Box', array($this, 'fusion_mgs_form_meta_box_render'), 'page', 'normal', 'high' );

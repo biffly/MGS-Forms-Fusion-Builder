@@ -28,20 +28,25 @@ label.mgs-forms-chk-replace-fa input[type="checkbox"]:checked ~ i.far.fa-square{
 label.mgs-forms-chk-replace-fa span.label{float:left; display:block; padding:0 8px; line-height:26px; font-size:16px; font-weight:bold; color:#747474;}
 .mgs-checkboxs .mgs-checkboxs-element{display:block; width:100%;}
 
+.mgs-forms-rad-replace-fa{cursor:pointer;}
 .mgs-forms-rad-replace-fa input[type=radio]{position:absolute; clip:rect(0,0,0,0); pointer-events:none;}
-label.mgs-forms-rad-replace-fa input[type="radio"] ~ i.fa.fa-circle{display:block; float:left;}
-label.mgs-forms-rad-replace-fa input[type="radio"] ~ i.fa.fa-check-circle{display:none; float:left;}
-label.mgs-forms-rad-replace-fa input[type="radio"]:checked ~ i.fa.fa-check-circle{display:block;}
-label.mgs-forms-rad-replace-fa input[type="radio"]:checked ~ i.fa.fa-circle{display:none;}
+label.mgs-forms-rad-replace-fa input[type="radio"] ~ i.far.fa-circle{display:block; float:left;}
+label.mgs-forms-rad-replace-fa input[type="radio"] ~ i.far.fa-check-circle{display:none; float:left;}
+label.mgs-forms-rad-replace-fa input[type="radio"]:checked ~ i.far.fa-check-circle{display:block;}
+label.mgs-forms-rad-replace-fa input[type="radio"]:checked ~ i.far.fa-circle{display:none;}
 label.mgs-forms-rad-replace-fa span.label{float:left; display:block; padding:0 8px; line-height:26px; font-size:16px; font-weight:bold; color:#747474;}
 .mgs-radios .mgs-checkboxs-radios{display:block; width:100%;}
-
-
-
 
 .col-1_1{float:none; clear:both; width:100%;}
 .col-1_2{float:left; width:50%;}
 .col-1_3{float:left; width:33.333%;}
+
+
+/*	PAY		*/
+label.mgs-optionpay-title{font-size:1.3em !important; margin-bottom:10px; margin-top:15px;}
+.mgs-optionpay-opciones .mgs-radios{display:flex;}
+.js_monto, .js_moneda, .js_metodo, .js_item, .js_desc{font-weight:900; color:#000; font-style:italic;}
+.pay-alert-content-wrapper{margin:15px; padding:15px; background:#EBEBEB; font-size:1em;}
 
 
 /* ----------- iPhone 5 and 5S ----------- */
