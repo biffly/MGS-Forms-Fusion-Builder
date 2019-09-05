@@ -95,10 +95,10 @@ class MGS_Forms_Builder_Admin {
 	public function get_registros_callback(){
 		if( isset($_POST['form']) && $_POST['form']!='' ){
 			global $wpdb;
-			global $table_name;
+			global $table_name_mgs_forms;
 			$form = $_POST['form'];
 			
-			$sql = "SELECT * FROM ".$table_name." WHERE post_id='".$form."' ORDER BY fecha DESC";
+			$sql = "SELECT * FROM ".$table_name_mgs_forms." WHERE post_id='".$form."' ORDER BY fecha DESC";
 			
 			$header = array('fecha'	=> '-');
 			$data = array();
@@ -153,9 +153,9 @@ class MGS_Forms_Builder_Admin {
 	public function delete_registros_callback(){
 		if( isset($_POST['id']) && $_POST['id']!='' ){
 			global $wpdb;
-			global $table_name;
+			global $table_name_mgs_forms;
 			$id = $_POST['id'];
-			if( $wpdb->delete($table_name, array('id'=>$id)) ){
+			if( $wpdb->delete($table_name_mgs_forms, array('id'=>$id)) ){
 				$resp = array('est'	=> 'OK');
 			}else{
 				$resp = array('est'	=> 'ERR');
@@ -180,10 +180,10 @@ class MGS_Forms_Builder_Admin {
 	public function mgs_meta_box_registros_render(){
 		global $post;
 		global $wpdb;
-		global $table_name;
+		global $table_name_mgs_forms;
 		
-		if( $wpdb->get_var("SHOW TABLES LIKE '$table_name'")==$table_name ){					
-			$forms_ids = $wpdb->get_results("SELECT post_id FROM ".$table_name." WHERE post_id=".$post->ID." GROUP BY post_id ORDER BY post_id");
+		if( $wpdb->get_var("SHOW TABLES LIKE '$table_name_mgs_forms'")==$table_name_mgs_forms ){					
+			$forms_ids = $wpdb->get_results("SELECT post_id FROM ".$table_name_mgs_forms." WHERE post_id=".$post->ID." GROUP BY post_id ORDER BY post_id");
 			if( $forms_ids ){
 				echo '
 					<label class="mgs-forms-chk-replace-fa" style="display:none;">

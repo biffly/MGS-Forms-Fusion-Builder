@@ -3,7 +3,7 @@
 Plugin Name: MGS-Forms para Fusion Builder
 Plugin URI: http://www.marceloscenna.com.ar
 Description: Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
-Version: 1.7
+Version: 2.0
 Author: Marcelo Scenna
 Author URI: http://www.marceloscenna.com.ar
 Text Domain: mgs-forms
@@ -39,7 +39,7 @@ if( get_option('MGS_FORMS_DEBUG')!='' && get_option('MGS_FORMS_DEBUG')=='true' )
 if( !defined('MGS_FORMS_BASENAME') )			define( 'MGS_FORMS_BASENAME', plugin_basename(__FILE__) );
 if( !defined('MGS_FORMS_PLUGIN_DIR') ) 			define( 'MGS_FORMS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 if( !defined('MGS_FORMS_PLUGIN_DIR_URL') )		define( 'MGS_FORMS_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
-if( !defined('MGS_FORMS_VERSION') ) 			define( 'MGS_FORMS_VERSION', '1.7' );
+if( !defined('MGS_FORMS_VERSION') ) 			define( 'MGS_FORMS_VERSION', '2.0' );
 if( !defined('MGS_FORMS_SLUG') )	 			define( 'MGS_FORMS_SLUG', 'MGS-Forms-FusionBuilder/MGS-forms.php' );
 if( !defined('MGS_FORMS_PLUGIN_REMOTE_PATH') )	define( 'MGS_FORMS_PLUGIN_REMOTE_PATH', 'http://marceloscenna.com.ar/update.php' );
 if( !defined('MGS_FORMS_SPECIAL_SECRET_KEY') ) 	define( 'MGS_FORMS_SPECIAL_SECRET_KEY', '589b4113769878.59794845' );
@@ -65,18 +65,18 @@ global $MGS_UP;
 
 
 global $wpdb;
-global $table_name;
+global $table_name_mgs_forms;
 global $sql_tabla;
-$table_name = strtolower($wpdb->prefix . 'mgs_forms_submits');
+$table_name_mgs_forms = strtolower($wpdb->prefix . 'mgs_forms_submits');
 $charset_collate = $wpdb->get_charset_collate(); 
-$sql_tabla = "CREATE TABLE $table_name (id int(11) NOT NULL AUTO_INCREMENT, post_id int(11) NULL, fecha date NOT NULL, nonce varchar(255) NULL, fields text NOT NULL, agent text, refferer text, veri_date date DEFAULT NULL, veri_agent text, UNIQUE KEY id (id) ) $charset_collate;";
+$sql_tabla = "CREATE TABLE $table_name_mgs_forms (id int(11) NOT NULL AUTO_INCREMENT, post_id int(11) NULL, fecha date NOT NULL, nonce varchar(255) NULL, fields text NOT NULL, agent text, refferer text, veri_date date DEFAULT NULL, veri_agent text, UNIQUE KEY id (id) ) $charset_collate;";
 
 
 include(MGS_FORMS_PLUGIN_DIR.'/inc/class/class-main.php');
 include(MGS_FORMS_PLUGIN_DIR.'/inc/config/forms.php');
 include(MGS_FORMS_PLUGIN_DIR.'/inc/admin/class-main.php');
 include(MGS_FORMS_PLUGIN_DIR.'/inc/class/class-update.php');
-include(MGS_FORMS_PLUGIN_DIR.'/inc/class/recaptchalib.php');
+//include(MGS_FORMS_PLUGIN_DIR.'/inc/class/recaptchalib.php');
 
 register_activation_hook(__FILE__, array('MGS_Tables', 'activation'));
 add_action('wp_loaded', 'MGS_Forms_addon_load', 10);
@@ -96,10 +96,10 @@ if( is_admin() ){
 
 
 
-if( $wpdb->get_var("SHOW TABLES LIKE '$table_name'")!=$table_name ){
+if( $wpdb->get_var("SHOW TABLES LIKE '$table_name_mgs_forms'")!=$table_name_mgs_forms ){
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta($sql_tabla);
-	if( $wpdb->get_var("SHOW TABLES LIKE '$table_name'")!=$table_name ) add_action( 'admin_notices', 'mgs_forms_notice_not_db' );
+	if( $wpdb->get_var("SHOW TABLES LIKE '$table_name_mgs_forms'")!=$table_name_mgs_forms ) add_action( 'admin_notices', 'mgs_forms_notice_not_db' );
 }
 
 

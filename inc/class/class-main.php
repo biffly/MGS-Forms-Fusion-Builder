@@ -72,7 +72,7 @@ if( !class_exists('MGS_Forms') ){
 				add_action( 'admin_notices', array($this, 'mgs_forms_error_no_fusionbuilder') );
 			}else{
 				global $wpdb;
-				global $table_name;
+				global $table_name_mgs_forms;
 				global $sql_tabla;
 				$version_instalada = get_option( 'MGS_FORMS_VERSION', 0 );
 				require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -124,7 +124,7 @@ if( !class_exists('MGS_Forms') ){
 					$paypal['amount'] = self::$__POST['pago'];
 					return $this->MakePayPalForm($paypal, self::$__POST);
 					die();
-				}else{
+				}elseif( self::$__POST['mgs-forms-acc']=='save' ){
 					unset(self::$__POST['status']);
 					unset(self::$__POST['optionpay_email']);
 					unset(self::$__POST['optionpay_url_return_ok']);
@@ -136,6 +136,8 @@ if( !class_exists('MGS_Forms') ){
 					}
 					
 					$pre_id = $this->save_in_db(self::$__POST, get_the_id());
+					
+					//$html .= $pre_id.'<pre>'.print_r($_POST, true).'</pre>';
 					
 					if( $atts['send_mail_raw']=='yes' && self::$flag_saved ){
 						$content_raw = str_replace('fusion_mgs_form_elemento', 'fusion_mgs_form_elemento_raw', $content);
@@ -951,10 +953,10 @@ if( !class_exists('MGS_Forms') ){
 			unset($post['website']);
 			$fields = serialize($post);
 			global $wpdb;
-			global $table_name;
-			//$table_name = $wpdb->prefix . 'MGS_Forms_submits';
+			global $table_name_mgs_forms;
+			//$table_name_mgs_forms = $wpdb->prefix . 'MGS_Forms_submits';
 			$wpdb->insert(
-				$table_name,
+				$table_name_mgs_forms,
 				array(
 					'post_id'		=> $page_id,
 					'fecha'			=> date('Y-m-d'),

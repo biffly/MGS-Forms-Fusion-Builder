@@ -2,7 +2,7 @@
 Tags: forms, db
 Requires at least: 4.9
 Tested up to: 5.1.1
-Stable tag: 1.6
+Stable tag: 2.0
 License: BSD 2-Clause "Simplified"
 License URI: https://github.com/biffly/MGS-Forms-Fusion-Builder/blob/master/LICENSE
 
@@ -15,6 +15,15 @@ Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un fo
 Creacion de formularios y almacenado en BBDD. Permite crar de forma rapida un formulario y agregarlo utilizando Fusion Builder
 
 == Changelog ==
+= Version 2.0 =
+* Fix conflicto MGS NL Plg
+= Version 1.9 =
+* Fix admin issue
+= Version 1.8 =
+* Fix admin issue
+= Version 1.7
+ =
+* Agregado opciones de pago
 = Version 1.6 =
 * Fix admin issue
 = Version 1.4 =

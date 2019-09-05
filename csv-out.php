@@ -3,8 +3,8 @@ error_reporting( E_ALL );
 if( $_POST['formulario']!='' ){
 	require_once('../../../wp-load.php');
     global $wpdb;
-	$table_name = $wpdb->prefix . 'mgs_forms_submits';
-	$sql = "SELECT * FROM ".$table_name." WHERE post_id='".$_POST['formulario']."' ORDER BY fecha DESC";
+	$table_name_mgs_forms = $wpdb->prefix . 'mgs_forms_submits';
+	$sql = "SELECT * FROM ".$table_name_mgs_forms." WHERE post_id='".$_POST['formulario']."' ORDER BY fecha DESC";
 	$out = '';$header = '';
 	$a_header = array('ID', 'fecha');
 	$resus = $wpdb->get_results($sql);

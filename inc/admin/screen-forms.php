@@ -10,10 +10,10 @@
                 <div class="mgs-forms-option-fields-warp">
                 	<?php
                     global $wpdb;
-                    global $table_name;
+                    global $table_name_mgs_forms;
 					
-					if( $wpdb->get_var("SHOW TABLES LIKE '$table_name'")==$table_name ){					
-						$forms_ids = $wpdb->get_results("SELECT post_id FROM ".$table_name." GROUP BY post_id ORDER BY post_id");
+					if( $wpdb->get_var("SHOW TABLES LIKE '$table_name_mgs_forms'")==$table_name_mgs_forms ){					
+						$forms_ids = $wpdb->get_results("SELECT post_id FROM ".$table_name_mgs_forms." GROUP BY post_id ORDER BY post_id");
 						$state = '';
 						$placeholder = __('Seleccione formulario', 'mgs-forms');
 						if( count($forms_ids)<=0 ){
