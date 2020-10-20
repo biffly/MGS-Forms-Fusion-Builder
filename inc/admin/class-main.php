@@ -154,12 +154,22 @@ class MGS_Forms_Builder_Admin {
 		if( isset($_POST['id']) && $_POST['id']!='' ){
 			global $wpdb;
 			global $table_name_mgs_forms;
-			$id = $_POST['id'];
-			if( $wpdb->delete($table_name_mgs_forms, array('id'=>$id)) ){
-				$resp = array('est'	=> 'OK');
+			if( is_array($_POST['id']) ){
+				foreach($_POST['id'] as $id ){
+					$wpdb->delete($table_name_mgs_forms, ['id'=>$id]);
+				}
+				$resp = array('est'	=> 'OKs');
 			}else{
-				$resp = array('est'	=> 'ERR');
+				$id = $_POST['id'];
+				if( $wpdb->delete($table_name_mgs_forms, array('id'=>$id)) ){
+					$resp = array('est'	=> 'OK');
+				}else{
+					$resp = array('est'	=> 'ERR');
+				}
+				$resp = array('est'	=> 'OK');
 			}
+			
+			
 		}else{
 			$resp = array('est'	=> 'ERR');
 		}

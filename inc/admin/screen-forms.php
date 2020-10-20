@@ -24,7 +24,7 @@
                         <select id="formulario" name="formulario" class="mgs-forms-control mgs-select-field" <?php echo $state?> placeholder="<?php echo $placeholder?>">
                             <option value=""><?php echo $placeholder?></option>
                             <?php foreach($forms_ids as $f){?>
-                            <option value="<?php echo $f->post_id?>"><?php echo get_the_title($f->post_id)?></option>
+                            <option value="<?php echo $f->post_id?>" <?php selected($f->post_id, $_GET['_form'])?>><?php echo get_the_title($f->post_id)?></option>
                             <?php }?>
                         </select>
                     <?php
@@ -59,10 +59,17 @@
                 	<input type="submit" class="button button-primary mgs-forms-save-settings mgs-forms-export-csv" value="<?php echo __('Descargar CSV')?>" disabled>
                 </div>
 			</div>
-    
-            <div class="mgs-forms-settings list-regs"></div>
-	        <div class="clear"></div>
 		</div>
+	</form>
+	<form method="get">
+		<div class="mgs-registros_wrapper">
+			<div class="mgs-forms-settings list-regs"></div>
+			<div class="clear"></div>
+		</div>
+		<input type="hidden" name="page" id="page" value="mgs-forms-formularios">
+		<input type="hidden" name="_form" id="_form" value="">
+		<input type="hidden" name="acc" id="acc" value="delete">
+		
 	</form>
     
     <script>
@@ -72,10 +79,12 @@
 		};
 		
 		var espera = '<div class="mgs-mgs-espera"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Seleccione unu formulario para ver los resultados</div>';
-		var cargando = '<div class="mgs-mgs-espera"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i> Cargando resultados</div><table id="mgs-registros" class="table table-striped table-bordered dataTable" width="100%"></table>';
+		var cargando = '<div class="mgs-mgs-espera"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i> Cargando resultados</div><table id="mgs-registros" class="table table-striped table-bordered dataTable" width="100%"></table><button type="button" class="button button-primary mgs-forms-deletess"><?php echo __('Eliminar seleccionados')?></button>';
 		var tabla ='';
 		
-		jQuery('.list-regs').html(espera);
+		LoadRegistros();
+		
+		//jQuery('.list-regs').html(espera);
 		
 		jQuery('#formulario').on('change', function(){
 			LoadRegistros();
@@ -102,6 +111,34 @@
 			});
 		});
 		
+		jQuery('body').on('click', 'button.mgs-forms-deletess', function(e){
+			e.preventDefault();
+			var to_delete = [];
+			jQuery('.mgs-forms-ids-to-delete').each(function(){
+				if( jQuery(this).is(':checked') ){
+					var row = jQuery(this).parent().parent();
+					row.addClass('selected');
+					to_delete.push(jQuery(this).val())
+				}
+			});
+			if( to_delete.length>0 ){
+				//console.log('deleting....', to_delete);
+				//DeleteRegistro(to_delete);
+				bootbox.confirm({
+					title		: 'Eliminar?',
+					message		: 'Realmente desea eliminar los registros seleccionados? La operación no se puede deshacer.',
+					callback	: function(result){
+						if( result ){
+							DeleteRegistro(to_delete);
+						}else{
+							jQuery('tr').removeClass('selected');
+						}
+					}
+				});
+			}
+		});
+		
+		
 		function DeleteRegistro(id){
 			jQuery.ajax({ 
 				data	: {
@@ -115,6 +152,9 @@
 					if( resp.est=='OK' ){
 						tabla.row('.selected').remove().draw(false);
 						bootbox.alert("Registro eliminado con éxito.");
+					}else if( resp.est=='OKs' ){
+						tabla.rows('.selected').remove().draw(false);
+						bootbox.alert("Registros eliminados con éxito.");
 					}else{
 						bootbox.alert("No se pudo eliminar el registro.");
 						jQuery('tr').removeClass('selected');
@@ -136,6 +176,7 @@
 			});
 			
 			if( form!='' ){
+				jQuery('#_form').val(form);
 				jQuery('.mgs-forms-export-csv').prop('disabled', false);
 				jQuery('.list-regs').html(cargando);
 				jQuery.ajax({ 

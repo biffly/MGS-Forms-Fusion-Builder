@@ -21,7 +21,12 @@
 			
 			.mgs-select-field{width:100%;}
 			
-			
+#mgs-registros_wrapper table.dataTable tr td input[type="checkbox"]{
+	height: 1.5rem;
+	width: 1.5rem;
+	line-height: 1.5rem;
+	font-size: 1.5rem;
+}			
 			
 			
 /*
