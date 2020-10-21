@@ -100,7 +100,10 @@ class MGS_Forms_Builder_Admin {
 			
 			$sql = "SELECT * FROM ".$table_name_mgs_forms." WHERE post_id='".$form."' ORDER BY fecha DESC";
 			
-			$header = array('fecha'	=> '-');
+			$header = [
+				'<input type="checkbox" class="mgs-forms-select-all">'	=> '-',
+				'fecha'			=> '-'
+			];
 			$data = array();
 			$exclude_data = array('unique_class', 'nonce', 'mgs-forms-ID-gen', 'mgs-forms-acc');
 			$exclude_data = array_merge($exclude_data, $_POST['hide']);
@@ -121,7 +124,10 @@ class MGS_Forms_Builder_Admin {
 			
 			$resus = $wpdb->get_results($sql);
 			foreach( $resus as $resu ){
-				$t = array($resu->fecha);
+				$t = [
+					'<input type="checkbox" class="mgs-forms-ids-to-delete" value="'.$resu->id.'">',
+					$resu->fecha
+				];
 				$f = unserialize($resu->fields);
 				foreach( $f as $k=>$v ){
 					if( !in_array($k, $exclude_data) ){

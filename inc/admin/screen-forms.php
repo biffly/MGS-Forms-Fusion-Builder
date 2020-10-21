@@ -111,6 +111,12 @@
 			});
 		});
 		
+		jQuery('body').on('click', '.mgs-forms-select-all', function(e){
+			e.preventDefault();
+			var checkBoxes = jQuery('.mgs-forms-ids-to-delete');
+        	checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+		});
+		
 		jQuery('body').on('click', 'button.mgs-forms-deletess', function(e){
 			e.preventDefault();
 			var to_delete = [];
